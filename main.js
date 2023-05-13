@@ -3,10 +3,11 @@
 
      let token = null;
      let uid = String(Math.floor(Math.random() * 10000))
-     
      let client;
      let channel;
-     
+     let localStream;
+     let remoteStream;
+     let peerConnection;
      let queryString = window.location.search
      let urlParams = new URLSearchParams(queryString)
      let roomId = urlParams.get('room')
@@ -14,10 +15,6 @@
      if(!roomId){
          window.location = 'lobby.html'
      }
-     
-     let localStream;
-     let remoteStream;
-     let peerConnection;
      
      const servers = {
          iceServers:[
@@ -147,8 +144,6 @@ let leaveChannel = async () => {
    await channel.leave()
    await client.logout()
 }
-
-
 
 let toggleCamera = async () => {
     let videoTrack = localStream.getTracks().find(track => track.kind === 'video')
